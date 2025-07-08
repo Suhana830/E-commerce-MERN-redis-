@@ -8,11 +8,9 @@ import paymentRoutes from './routes/paymentRoutes.js'
 import analysisRoutes from './routes/analyticsRoutes.js'
 import cors from 'cors';
 import path from "path";
-import { fileURLToPath } from "url";
-import { dirname } from "path";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+
+const __dirname = path.resolve();
 
 import { connectDB } from './lib/db.js';
 import cookieParser from 'cookie-parser';
@@ -43,7 +41,7 @@ app.use("/api/analytics", analysisRoutes);
 
 
 if (process.env.NODE_ENV === "production") {
-    app.use(express.static(path.join(__dirname, "frontend", "dist")));
+    app.use(express.static(path.join(__dirname, "frontend/dist")));
 
     app.get("*", (req, res) => {
         res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
